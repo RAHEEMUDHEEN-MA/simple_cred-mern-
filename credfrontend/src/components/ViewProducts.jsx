@@ -7,21 +7,21 @@ function ViewProducts() {
     const navigate=useNavigate()
   const [product, setproduct] = useState([]);
   const { pid } = useParams();
-  console.log("iiiddd", pid);
-  const theid=product._id
-  console.log("the id",theid)
+  console.log("product Id:", pid);
+
 
   useEffect(() => {
     axios.get(`http://localhost:8000/products/view/${pid}`).then((response) => {
       setproduct(response.data);
     });
   }, [pid]);
+  console.log("response", product);
 
-  const handleDelete = async (theid) => {
+  const handleDelete = async () => {
    const confirmdlt=window.confirm("delete??")
    if(confirmdlt){
     try {
-        console.log("attemp of delete", theid);
+       
         await axios.delete(`http://localhost:8000/products/delete/${pid}`);
         navigate("/")
       } catch (Err) {
@@ -30,7 +30,7 @@ function ViewProducts() {
    }
   };
 
-  console.log("response", product);
+
 
   const buttonHolder = {
     display: "flex",
@@ -56,7 +56,7 @@ function ViewProducts() {
           <Card.Text>{product.type}</Card.Text>
           <Card.Text>{product._id}</Card.Text>
           <div style={buttonHolder}>
-            <Button variant="primary">Edit</Button>
+           <Link to={`/edit/${product._id}`}> <Button variant="primary">Edit</Button></Link>
             <Button variant="danger" onClick={handleDelete}>
               delete
             </Button>
