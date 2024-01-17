@@ -7,12 +7,13 @@ function Editproduct() {
   const [product, setproduct] = useState([]);
   const { pid } = useParams();
   const navigate=useNavigate()
-  console.log(" edit pid:", pid);
+//   console.log(" edit pid:", pid);
 
-  const [name, setname] = useState(product.name);
-  const [brand, setbrand] = useState(product.brand);
-  const [prize, setprize] = useState(product.prize);
-  const [type, settype] = useState(product.type);
+  const [name, setname] = useState();
+  const [brand, setbrand] = useState();
+  const [prize, setprize] = useState();
+  const [type, settype] = useState();
+ 
 
   useEffect(() => {
     axios.get(`http://localhost:8000/products/view/${pid}`).then((response) => {
@@ -25,7 +26,7 @@ function Editproduct() {
    const confirm=window.confirm("save??")
    if(confirm){
     e.preventDefault();
-    console.log("edit attempt");
+    // console.log("edit attempt");
 
    await axios.post(`http://localhost:8000/products/edit/${pid}`, {
       name,
@@ -33,7 +34,7 @@ function Editproduct() {
       prize,
       type,
     });
-    // console.log(response)
+   
     navigate('/')
    }
   };
